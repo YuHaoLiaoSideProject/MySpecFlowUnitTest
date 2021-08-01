@@ -16,6 +16,11 @@ namespace MySpecFlowUnitTest.Services
 		int halfUnitFee = 2;
 		//最大費用
 		int maxFee = 30;
+		public int Billing(int hours, int inputMinute)
+        {
+			return Billing(hours * 60 + inputMinute);
+
+		}
 		public int Billing(int inputMinute)
         {
 			int resultFee = 0;
@@ -25,7 +30,7 @@ namespace MySpecFlowUnitTest.Services
 				//每天拆開
 				int addDayMinute = inputMinute >= dayMinute ? dayMinute : inputMinute;
 				inputMinute -= addDayMinute;
-				 SingleDayBilling(addDayMinute);
+				resultFee += SingleDayBilling(addDayMinute);
 			}
 			return resultFee;
 		}

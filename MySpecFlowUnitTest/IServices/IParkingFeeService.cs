@@ -9,5 +9,6 @@ namespace MySpecFlowUnitTest.IServices
     public interface IParkingFeeService
     {
         int Billing(int inputMinute);
+        int Billing(int hours, int inputMinute);
     }
 }

@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props')" />
+  <Import Project="..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" />
+  <Import Project="..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.props" Condition="Exists('..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.props')" />
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.props" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.props')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.props" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.props')" />
   <Import Project="..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.props" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.props')" />
   <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.props')" />
@@ -62,6 +66,9 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.2.1.2\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="SpecFlow.Internal.Json, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.Internal.Json.1.0.8\lib\net45\SpecFlow.Internal.Json.dll</HintPath>
     </Reference>
@@ -73,18 +80,22 @@
     <Reference Include="TechTalk.SpecFlow, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecFlow.3.9.22\lib\net461\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
+    <Reference Include="TechTalk.SpecFlow.MSTest.SpecFlowPlugin, Version=3.9.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpecFlow.MsTest.3.9.22\lib\net461\TechTalk.SpecFlow.MSTest.SpecFlowPlugin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServices\IParkingFeeService.cs" />
+    <Compile Include="NUnitTests\ParkingFeeTest.cs" />
     <Compile Include="Services\ParkingFeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceTests\ParkingFeeStep.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Features\ParkingFeeFeature.feature" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Features\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -98,9 +109,17 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.targets'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.props'))" />
+    <Error Condition="!Exists('..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.targets'))" />
+    <Error Condition="!Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.13.2\build\NUnit.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.4.0.0\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
   <Import Project="..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.1.2\build\net45\MSTest.TestAdapter.targets')" />
   <Import Project="..\packages\SpecFlow.3.9.22\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.3.9.22\build\SpecFlow.targets')" />
   <Import Project="..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.targets" Condition="Exists('..\packages\Microsoft.CodeCoverage.16.10.0\build\netstandard1.0\Microsoft.CodeCoverage.targets')" />
   <Import Project="..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.targets" Condition="Exists('..\packages\Microsoft.NET.Test.Sdk.16.10.0\build\net45\Microsoft.NET.Test.Sdk.targets')" />
+  <Import Project="..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('..\packages\SpecFlow.Tools.MsBuild.Generation.3.9.22\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
+  <Import Project="..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.targets" Condition="Exists('..\packages\SpecFlow.MsTest.3.9.22\build\SpecFlow.MsTest.targets')" />
 </Project>
