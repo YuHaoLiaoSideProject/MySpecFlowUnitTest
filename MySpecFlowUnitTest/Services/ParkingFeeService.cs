@@ -1,9 +1,5 @@
 ﻿using MySpecFlowUnitTest.IServices;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MySpecFlowUnitTest.Services
 {
@@ -58,7 +54,7 @@ namespace MySpecFlowUnitTest.Services
 
 			int sumFee = hour * unitFee + remainderMinuteCost;
 
-			return sumFee > maxFee ? maxFee : sumFee;
+			return Math.Min(sumFee, maxFee);
 		}
 	}
 }
