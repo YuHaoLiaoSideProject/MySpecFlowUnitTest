@@ -86,6 +86,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServices\IParkingFeeService.cs" />
+    <Compile Include="Models\BillingModel.cs" />
     <Compile Include="NUnitTests\ParkingFeeTest.cs" />
     <Compile Include="Services\ParkingFeeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
